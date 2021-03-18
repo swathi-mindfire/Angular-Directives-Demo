@@ -1,0 +1,24 @@
+<p>Displaying  dtat from component class to html (Data binding) using ngfor directive</p>
+<ng-content></ng-content> <br>
+
+<input type="text" [(ngModel)]="newItem" >
+<button (click)= "addItem()" class="btn btn-primary">Add item</button>
+<!--<h2>Newly added item:{{newItem}}</h2>-->
+
+<h2>{{ items }}</h2>
+<ul>
+    <li *ngFor = "let item of  itemList;let i=index"> {{i}}  {{item}}<button class="btn btn-secondary" (click) ="deleteItem(i)">Delete Item</button></li>
+</ul>
+<!--If directive-->
+<h1 *ngIf = "x === true">x is True</h1>
+<h1 *ngIf = "x === false"> x is False</h1>
+
+<!--If else directive-->
+<span *ngIf = "y === true then t1; else t2" ></span>
+
+<ng-template #t1>
+    <h2>y is true </h2>
+</ng-template>
+<ng-template #t2>
+    <h2>y is false</h2>
+</ng-template>

@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="border p-2">
+        <h2>parent component </h2>
+        <b>Task:{{task}}</b>
+        <b>Sub-Task:{{subTask}}</b> <br>
+        <app-child [pp] = "task"></app-child>
+        <input type="text" [(ngModel)] = "task">
+
+    </div>
+
+</div>
+
+

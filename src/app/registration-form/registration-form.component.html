@@ -1,0 +1,20 @@
+<h2>Registration Form</h2>
+/*<form action="" class="regform" #regForm = "ngForm">
+    Name   : <input type="text" id="name" name="name" #name="ngModel" [ngModel] class ="form-control" ><br>
+    Email  : <input type="email" id="mail" name="mail" #mail="ngModel" [ngModel] class ="form-control" required > <br>
+    Password :<input type="password" id="pwd1" name="password" #password="ngModel" [ngModel] class ="form-control" required minlength="8"> <br>
+    <div *ngIf ="password.errors && password.touched">
+        <span *ngIf = "password.errors.required">Password is must</span>
+        <span *ngIf = "password.errors.minlength">Password is Minimun 8 characters</span>
+    
+    </div>
+    
+    Confirm Password :<input type="password" id="pwd2" name="password2" #password2="ngModel" [ngModel] class ="form-control" required> <br>
+    <button (click) = "regForm.resetForm()" class="btn btn-secondary">Reset</button>
+    <input type="submit" value="Sign Up" [disabled] = "!regForm.valid" class="btn btn-primary">
+
+    
+</form>
+
+<button (click) = "showFormData(regForm)" class="btn btn-primary">Click here</button> 
+

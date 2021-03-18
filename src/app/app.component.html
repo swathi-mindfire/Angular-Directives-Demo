@@ -1,0 +1,49 @@
+<!--<app-registration-form></app-registration-form>
+<app-server></app-server>
+<h2>Two component selectors  added in app.component.html</h2>
+<h2>Demo of *ngfor directive</h2>
+<app-directives-demo>using ng-content text in between component selector also displays like this displayed</app-directives-demo>
+<br>
+<div class="container">
+    <div class="border p-2">
+        <h2>App Component </h2>
+        <ngb-datepicker></ngb-datepicker>
+        <app-parent></app-parent>
+        
+    </div>
+</div>
+
+<h2>Calendar Demo</h2>
+<input type="date"> <br>
+<h2>Below is bootstrap datepicker component based</h2>
+
+<ngb-datepicker></ngb-datepicker> <br><br>
+
+<h2>Date picker 2 with open and close</h2> <br><br>
+
+<input type="text" ngbDatepicker #d="ngbDatepicker">
+<button (click)="d.toggle()">open calendar</button> <br><br>
+
+<h2>Using display months property of datepicker we are displaying only some number of months here 3</h2>
+<input type="text" ngbDatepicker #d2 ="ngbDatepicker" [displayMonths] = "3">
+<button (click) = "d2.toggle()">clik to see  months calendar</button>-->
+
+<button class="btn btn-primary" (click)= "choice ='mobiles'">phones</button>
+<button class= "btn btn-secondary" (click)= " choice = 'laptops'">Laptops</button>
+
+<div *ngIf = "choice ==='mobiles'">
+        <label for="">Select Laptop Brand</label>
+        <select name="" id="" class=form-control>
+            <option value="samsung">Samsung</option>
+            <option value="redmi">Redmi</option>
+            <option value="realme">Realme</option>
+        </select>
+</div>
+<div *ngIf = "choice === 'laptops'">
+    <label for="">Select Mobile Brand</label>
+    <select name="" id="" class=form-control>
+        <option value="lenovo">Lenovo</option>
+        <option value="dell">Dell</option>
+        <option value="hp">Hp</option>
+    </select>
+</div>
