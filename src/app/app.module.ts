@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {ReactiveFormsModule} from '@angular/forms';
 
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
@@ -14,6 +15,10 @@ import { ParentComponent } from './parent/parent.component';
 import { ChildComponent } from './child/child.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ComponentinteractionComponent } from './componentinteraction/componentinteraction.component';
+import { BindingDemoComponent } from './binding-demo/binding-demo.component';
+import { AngularFormAss1Component } from './angular-form-ass1/angular-form-ass1.component';
+import { BindingDemoSecondComponent } from './binding-demo-second/binding-demo-second.component';
+import { ValidateEqualModule } from 'ng-validate-equal';
 
 
 @NgModule({
@@ -25,16 +30,22 @@ import { ComponentinteractionComponent } from './componentinteraction/componenti
     DirectivesDemoComponent,
     ParentComponent,
     ChildComponent,
-    ComponentinteractionComponent
+    ComponentinteractionComponent,
+    BindingDemoComponent,
+    AngularFormAss1Component,
+    BindingDemoSecondComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    NgbModule,
+    ValidateEqualModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AngularFormAss1Component],
+  //bootstrap: [BindingDemoSecondComponent]
+
 })
 export class AppModule { }

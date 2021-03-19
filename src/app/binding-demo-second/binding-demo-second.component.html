@@ -1,0 +1,18 @@
+<h1>favourite color {{favColor}},favourite dish {{getFavDish()}}</h1>
+
+<button class="btn btn-primary" [disabled]="!flag">Click</button>
+
+Name:<input type="text" (input) = updateName($event) class="form-control"> <br>
+<h1>Name:{{name}}</h1> <br>
+
+Email:<input type="mail" [(ngModel)] ="mail" class="form-control"> <br>
+<h1>Mail:{{mail}}</h1>
+
+Mobile Number:<input type="number" name="" id="" [(ngModel)] = "mobile">
+
+
+<button (click)="updateMobileFlag()" class="btn btn-primary">  Click to see mobile number </button>
+
+<div *ngIf =" mflag ">
+    mobile :{{mobile}}
+</div>

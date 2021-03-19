@@ -1,0 +1,19 @@
+<h1>{{pageTitle}}</h1>
+
+<h2>Image Dispalyed with interpolation by specifying url attribute as imgUrl property of component </h2>
+<img src={{imgUrl}} alt=""> <br><br>
+
+<button disabled = {{btnStatus}}>click</button>
+
+
+<h2>Image Dispalyed with proprty binding by specifying url attribute inside [] and assigned imgUrl property of component </h2>
+<img [src] ="imgUrl" alt=""> <br><br>
+<button [disabled] = btnStatus>click here</button> <br>
+
+<button (click)="changeBtnStatus()">click to toggle above button states</button>
+
+<h1>buttonStatus ={{btnStatus}}</h1> <br>
+
+Enter Name:<input type="text" [(ngModel)] ="name">
+
+<h2>Your Name: {{name}}</h2>
