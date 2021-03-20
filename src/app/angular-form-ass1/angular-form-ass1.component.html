@@ -2,21 +2,25 @@
     <div class="container">
         <h2 class="heding text-center" title="hello">Registration Form</h2>
         <form #regForm = "ngForm"class="reg container" >
+            {{regForm.value |json}} 
+          
+            {{regForm.value.lname}}
             <!--First Group-->
             <div class="container" >
                 <div class="row">
                     <div class="sub-grp col-md-6">
                         <span id= "fnstar" class="star">*</span>
-                        <input type="text" name="fname"  #fname = "ngModel"  [ngModel]  required minlength="3" placeholder="First Name"id="firstname" class="form-control ip left">
+                        <input type="text" name="fname" #fname = "ngModel"  [ngModel]  required minlength="3" placeholder="First Name"id="firstname" class="form-control ip left">
                        
                       <div *ngIf = " fname.touched && fname.errors">
                           <p *ngIf = "fname.errors.required " class="errormsg">Please Enter your First Name</p>
                           <p *ngIf = "fname.errors.minlength" class="errormsg">First Name is minimum 3 characters</p>
                       </div>
                     </div>
+                    
                     <div class="sub-grp col-md-6">
                         <span id= "lnstar" class="star">*</span>
-                        <input type="text" required minlength="3"  name="lnmae" [ngModel] #lname = "ngModel"  email id="lastname" placeholder="Last Name" class="form-control ip  right">
+                        <input type="text" required minlength="3"  name="lname" [ngModel] #lname = "ngModel"  id="lastname" placeholder="Last Name" class="form-control ip  right">
                         <div *ngIf = " lname.touched && lname.errors">
                             <p *ngIf = "lname.errors.required " class="errormsg">Please Enter your Last Name</p>
                             <p *ngIf = "lname.errors.minlength" class="errormsg">Last Name is minimum 3 characters</p>
@@ -49,7 +53,7 @@
                         
                         <div *ngIf = " pwd2.touched && pwd2.errors">
                             <p *ngIf = "pwd2.errors.required " class="errormsg">Please Confirm your password</p> 
-                            <p *ngIf = "matchPasswords()"class="errormsg">passwords didnot match</p>
+                            <p *ngIf = "pwd1.value != pwd2.value"class="errormsg">passwords didnot match</p>
                         </div>
                     </div>
                 </div>
@@ -63,8 +67,7 @@
                         </div>
                     </div>
                     <div class="sub-grp col-md-6 mob">
-                        <br>
-                        
+                        <br>                       
                         <input type="tel" name="mobile" placeholder="Alternate Number" id="mobile2" class="form-control ip right"  maxlength="10"minlength="10"><br>
                     </div>
                 </div>
@@ -81,16 +84,25 @@
                         <input type="radio" name="gender" class="gender" #gender ="ngModel"  [ngModel]  required value="other"> <span class="gen radio-text"> other</span><br>
                     </div>
                     <div *ngIf = "gender.touched && gender.invalid">
-                        <p>class="errormsg">Please Select gender</p>
+                        <p class="errormsg">Please Select gender</p>
                       
                     </div>
                 </div>
-                <div class="row bottom">
+                  <div class="row bottom">
                     <div class="col-md-12 d-flex justify-content-between">
                         <a href="" id="signin" class="btn btn-primary">Sign in </a>
-                        <button type="button" class="btn btn-primary" id="next" (click)= "showGrp2();save(regForm)" [disabled] = "regForm.name.invalid">Next</button>
+                        <button type="button" class="btn btn-primary" id="next" (click)= "showGrp2();save(regForm);genCaptcha()"
+                        [disabled] = "pwd1.invalid|| fname.invalid  ||lname.invalid  || email.invalid ||
+                        mobile.invalid ||gender.invalid">
+                       Next</button>
+              
+                        <!--<button type="button" class="btn btn-primary" id="next" (click)= "showGrp2();save(regForm)"
+                         [disabled] = "regForm.controls.fname.invalid ||regForm.controls.lname.invalid ||
+                         regForm.controls.email.invalid || regForm.controls.pwd1.invalid || 
+                         regForm.controls.pwd2.invalid || regForm.controls.gender.invalid || regForm.controls.mobile.invalid">Next</button>-->
                     </div>
-                </div>      
+                </div> 
+                  
             </div>
             <!--Second Group 
              <div class="container" id="grp2" *ngIf = "show == 'grp2'">-->
@@ -98,29 +110,41 @@
                 <div class="row">
                     <div class="col-md-6 sub-grp" id="address1">
                         <span id= "a1star" class="star">*</span>
-                        <input type="text" name="caddress" placeholder="Current Address "id="address" class="form-control ip left">
-                        <span class= "a1req req" id="addresserror"></span>
+                        <input type="text" name="caddress" #address ="ngModel" [ngModel] required  placeholder="Current Address "id="address" class="form-control ip left">
+                        <div *ngIf = "address.touched && address.invalid">
+                           <p class="errormsg">Please Enter Your Address</p>
+                        </div>
                     </div>
                     <div class="col-md-6 sub-grp">
                         <span id= "countrystar" class="star">*</span>
-                        <select name="country-list" class="form-select ip country" id="country1">
-                            <option value="0">Select Country</option>
+                        <select name="country-list" #country= "ngModel" [(ngModel)] = "selectedCountryCode1"  required class="form-select ip country" id="country1">
+                            <option value="null" disabled>Select Country</option>
+                            <option *ngFor = "let c of countries" [ngValue] = " c.code"> {{c.name}}</option>
                         </select>
-                        <span class= "country1req req" id="country1error"></span>
+                        <div *ngIf = "country.touched && country.invalid">
+                            <p class="errormsg">Please Select Country</p>
+                         </div>
+                        
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 sub-grp">
                         <span id= "statestar" class="star">*</span>
-                        <select class="form-select ip" id="state1">
-                            <option value="0">Select State</option>
+                        <select class="form-select ip" id="state1" #state= "ngModel" name = "state" [(ngModel)] = "selectedState1" required>
+                            <option value="null" disabled>Select State</option>
+                            <option *ngFor = "let state of states[selectedCountryCode1]"value={{state}}>{{state}}</option>
                         </select>
-                        <span class= "state1req req" id="state1error"></span>
+                        <div *ngIf = "state.touched && state.invalid">
+                            <p class="errormsg">Please Select State</p>
+                         </div>
+                       
                     </div>
                     <div class="col col-md-6 city1">
                         <span id= "c1star" class="star">*</span>
-                        <input type="text" name="city1" placeholder="Current City "id="cityname" class="form-control ip right">
-                        <span class= "c1req req" id="citynameerror"></span>
+                        <input type="text" name="city1" placeholder="Current City" #city ="ngModel" [ngModel] id="cityname" required class="form-control ip right">
+                        <div *ngIf = "city.touched && city.invalid">
+                            <p class="errormsg">Please Enter Your City Name</p>
+                         </div>
                     </div>
                 </div>
                 <div class="row">
@@ -128,15 +152,17 @@
                         <input type="text" name="paddress" placeholder="Permanent Address "id="addr2" class="form-control ip left">
                     </div>
                     <div class="col-md-6 sub-grp optional">
-                        <select name="country-list" class="form-select ip country " id="country2">
-                            <option value="0">Select Country</option>
+                        <select name="country-list2" #country2= "ngModel" [(ngModel)] = "selectedCountryCode2" class="form-select ip country " id="country2">
+                            <option value="null">Select Permanent Country</option>      
+                            <option *ngFor = "let c of countries" [ngValue] = " c.code"> {{c.name}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6 sub-grp optional">
-                        <select class="form-select ip" id="state2">
-                            <option value="0">Select State</option>
+                        <select class="form-select ip"  #state2= "ngModel" name = "state2" [(ngModel)] = "selectedState2" id="state2">
+                            <option value="null" disabled>Select Permanent State</option>
+                            <option *ngFor = "let state of states[selectedCountryCode2]"value={{state}}>{{state}}</option>
                         </select>
                     </div>
                     <div class="col-md-6 city2 optional">
@@ -146,13 +172,13 @@
                 <div class="row captch-row">
                     <div class=" col-md-6 captcha-res sub-grp">
                         <span id="captcha-star" class="star">*</span> 
-                        <input type="number" name="result" id="result" class="form-control ip"  placeholder="Enter captcha Result" > <br>
+                        <input type="number" name="result" id="result" #result = "ngModel" [(ngModelclass)] = "result" (change) ="validateCaptcha()" required class="form-control ip"  placeholder="Enter captcha Result" > <br>
                         <span id="resulterror" class="captcha-req req"></span> 
                     </div>
                     <div class="col-md-6 captcha-expr sub-grp">
                         <br>
-                        <input type="text" name="exprsn" id="exprsn" class="optional captcha field ip form-control" readonly>
-                        <button id="refresh" class="captcha field" type="button"><i class="fas fa-sync-alt refrsh"></i></button> 
+                        <input type="text" name="exprsn" id="exprsn" [(ngModel)] = "expr"class="optional captcha field ip form-control" readonly>
+                        <button id="refresh" class="captcha field" type="button" (click) ="genCaptcha()"><i class="fas fa-sync-alt refrsh"></i></button> 
                     </div>
                 </div>
                 <div class="row" id="subscribe">
