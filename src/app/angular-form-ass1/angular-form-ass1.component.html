@@ -2,11 +2,8 @@
     <div class="container">
         <h2 class="heding text-center" title="hello">Registration Form</h2>
         <form #regForm = "ngForm"class="reg container" >
-            {{regForm.value |json}} 
-          
-            {{regForm.value.lname}}
             <!--First Group-->
-            <div class="container" >
+            <div class="container" id="grp1" *ngIf = "show == 'grp1'" >
                 <div class="row">
                     <div class="sub-grp col-md-6">
                         <span id= "fnstar" class="star">*</span>
@@ -106,7 +103,7 @@
             </div>
             <!--Second Group 
              <div class="container" id="grp2" *ngIf = "show == 'grp2'">-->
-            <div class="container" id="grp2">
+            <div class="container" id="grp2" *ngIf = "show == 'grp2'">
                 <div class="row">
                     <div class="col-md-6 sub-grp" id="address1">
                         <span id= "a1star" class="star">*</span>
@@ -172,15 +169,18 @@
                 <div class="row captch-row">
                     <div class=" col-md-6 captcha-res sub-grp">
                         <span id="captcha-star" class="star">*</span> 
-                        <input type="number" name="result" id="result" #result = "ngModel" [(ngModelclass)] = "result" (change) ="validateCaptcha()" required class="form-control ip"  placeholder="Enter captcha Result" > <br>
-                        <span id="resulterror" class="captcha-req req"></span> 
+                        <input type="number" name="result" id="result" #result = "ngModel" [(ngModel)] = "captchaResult" (change) ="validateCaptcha()" required class="form-control ip"  placeholder="Enter captcha Result" > <br>
+                        <div *ngIf = " result.touched && result.errors">
+                            <p *ngIf = "result.errors.required" class="errormsg">Please Enter Captcha Result</p>
+                            <p *ngIf = " actualCaptchaResult != captchaResult" class="errormsg">Invalid Captcha</p>
+                        </div>
                     </div>
                     <div class="col-md-6 captcha-expr sub-grp">
                         <br>
                         <input type="text" name="exprsn" id="exprsn" [(ngModel)] = "expr"class="optional captcha field ip form-control" readonly>
                         <button id="refresh" class="captcha field" type="button" (click) ="genCaptcha()"><i class="fas fa-sync-alt refrsh"></i></button> 
-                    </div>
-                </div>
+                    </div>                     
+                </div>                                     
                 <div class="row" id="subscribe">
                     <div class="col-md-12 sub-grp">
                          subscibe to news letter                     
@@ -191,7 +191,9 @@
                 <div class="row" id="last">
                     <div class="col-md-12 d-flex justify-content-around">
                         <button type="button" class="btn btn-primary" id="prev" (click) = "showGrp1()">Prev</button>
-                        <button type="submit" class="btn btn-primary" id="signup" (click)= "save(regForm)">Sign Up</button>
+                        <button type="submit" class="btn btn-primary" id="signup" (click)= "save(regForm)"
+                        [disabled] = "address.invalid || country.invalid ||state.invalid ||city.invalid
+                        ||result.invalid || actualCaptchaResult != captchaResult" >Sign Up</button>
                     </div>
                 </div>   
             </div>

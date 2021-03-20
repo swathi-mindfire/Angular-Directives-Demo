@@ -22,8 +22,9 @@ export class AngularFormAss1Component implements OnInit {
   operation:any;
   expr :string;
   operations :any;
-  captchaResult :number;
+  captchaResult :any;
   op :any;
+  actualCaptchaResult :any;
 
 
   
@@ -60,8 +61,9 @@ export class AngularFormAss1Component implements OnInit {
     this.num2= Math.round((100-10)*Math.random() + 10);
     this.operations = ['*','/','+','-'];
     this.expr = "";
-    this.captchaResult =0;
+    this.captchaResult = null;
     this.op ="";
+    this.actualCaptchaResult = null;
 
   }
 
@@ -86,13 +88,23 @@ export class AngularFormAss1Component implements OnInit {
     this.expr      =  this.num1 + this.op  + this.num2
 }
 validateCaptcha(){
-  let temp = this.num1 + this.op +this.num2
-  alert(temp)
+ 
+  switch(this.op){
+    case "+ ":
+      this.actualCaptchaResult =this.num1 + this.num2;
+      break;
+    case "-":
+      this.actualCaptchaResult =this.num1 - this.num2;
+      break;
+    case "*":
+      this.actualCaptchaResult =this.num1 * this.num2;
+      break;
+    case "/":
+      this.actualCaptchaResult =Math.floor(this.num1 / this.num2);
+      break;
+  }
 
 }
-
-  
-
   /*
   validateForm(regForm :any){
     console.log("submitted" +regForm);
