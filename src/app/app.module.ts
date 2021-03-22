@@ -33,7 +33,8 @@ import { ValidateEqualModule } from 'ng-validate-equal';
     ComponentinteractionComponent,
     BindingDemoComponent,
     AngularFormAss1Component,
-    BindingDemoSecondComponent
+    BindingDemoSecondComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,7 @@ import { ValidateEqualModule } from 'ng-validate-equal';
     ValidateEqualModule,
   ],
   providers: [],
-  bootstrap: [AngularFormAss1Component],
+  bootstrap: [ ReactiveFormDemoComponent],
   //bootstrap: [BindingDemoSecondComponent]
 
 })

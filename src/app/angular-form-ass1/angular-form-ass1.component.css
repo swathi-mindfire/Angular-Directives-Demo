@@ -184,10 +184,10 @@ input:focus::placeholder{
     top:30px;
 }
 /*
-.ng-touched .ng-invalid{
+.ng-touched  .ng-invalid{
     border:red 1px solid;
-    
 }*/
+
 .errormsg{
     color:red;
     font-size: 14px;

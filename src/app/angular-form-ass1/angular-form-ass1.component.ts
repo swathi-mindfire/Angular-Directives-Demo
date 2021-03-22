@@ -25,9 +25,6 @@ export class AngularFormAss1Component implements OnInit {
   captchaResult :any;
   op :any;
   actualCaptchaResult :any;
-
-
-  
   selectedState2:any;
  
   //fnStatus :boolean =false ;
@@ -111,7 +108,7 @@ validateCaptcha(){
     console.log(regForm)
   }*/
   save(s :any){
-    console.log(s)
+    console.log(s.value)
   }
   /*
   matchPasswords(){{}

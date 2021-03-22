@@ -7,3 +7,133 @@
     <button class="btn">Reset</button>
     <button class="btn">Sign Up</button>
 </div>-->
+<!--
+<div class="container" [formGroup] = "registrationForm">
+  First Name: <input type="text" class="form-control" formControlName = "firstName">
+  Last Name: <input type="text" class="form-control" formControlName = "lastName">
+  DOB : <input type="date" name="" id="" class="form-control" formControlName = "dob"> <br> <br>
+  <button  class="btn btn-primary" (click) ="save()">save</button>
+  <button  class="btn btn-primary" (click) ="clear()">Reset</button>
+  <button  class="btn btn-primary" (click) ="fill()">fill</button> <br> <br>
+  <button  class="btn btn-primary" (click) ="fill2()">customfill</button>
+</div>
+-->
+
+
+<div class="container">
+    <h2 class="heding text-center" title="hello">Registration Form</h2>
+    <!--First Group-->
+    <div class="container" [formGroup] = "registrationForm">
+        <div class="container" id="grp1" *ngIf = "show == 'grp1'" >
+        
+            <div class="row">
+                <div class="sub-grp col-md-6">
+                    <span id= "fnstar" class="star">*</span>
+                    <input type="text" name="firstName" formControlName = "firstName" placeholder="First Name"id="firstname" class="form-control ip left">
+                    <div *ngIf = "  registrationForm.controls['firstName'].touched &&  registrationForm.controls['firstName'].errors">
+                        <p *ngIf = " registrationForm.controls['firstName'].errors.required " class="errormsg">Please Enter your First Name</p>
+                        <p *ngIf = " registrationForm.controls['firstName'].errors.minlength" class="errormsg">First Name is minimum 3 characters</p>
+                    </div>
+                
+                </div>
+                
+                <div class="sub-grp col-md-6">
+                    <span id= "lnstar" class="star">*</span>
+                    <input type="text" name="lname" formControlName = "lastName"  id="lastname" placeholder="Last Name" class="form-control ip  right">
+                    <div *ngIf = "registrationForm.controls['lastName'].touched && registrationForm.controls['lastName'].errors">
+                        <p *ngIf = "registrationForm.controls['lastName'].errors.required " class="errormsg">Please Enter your Last Name</p>
+                        <p *ngIf = "registrationForm.controls['lastName'].errors.minlength" class="errormsg">Last Name is minimum 3 characters</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mailrow">
+                <div class="sub-grp col-md-12">
+                    <span id= "mailstar" class="star">*</span>
+                    <input type="text"  name="email" formControlName = "email"  placeholder="Enter Your Email" id="email" class="form-control ip"><br>
+                    <div *ngIf = "registrationForm.controls['email'].touched && registrationForm.controls['email'].errors">
+                        <p *ngIf = "registrationForm.controls['email'].errors.required" class="errormsg">Please Enter your Mail Id</p>
+                        <p *ngIf = "registrationForm.controls['email'].errors.pattern" class="errormsg">Enter valid Mail Id</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="sub-grp col-md-6 pass">
+                    <span id= "p1star" class="star">*</span>
+                    <input type="password" name="pwd1"  formControlName = "password1"  placeholder="Password "id="password" class="form-control ip left">
+                 
+                    <div *ngIf = "registrationForm.controls['password1'].touched &&registrationForm.controls['password1'].errors">
+                        <p *ngIf = "registrationForm.controls['password1'].errors.required " class="errormsg">Please Enter Password</p>
+                        <p *ngIf = "registrationForm.controls['password1'].errors.minlength" class="errormsg">passwordis minimum 8 characters</p>
+                    </div>
+                </div>
+                <div class="sub-grp col-md-6 pass">
+                    <span id= "p2star" class="star">*</span>
+                    <input type="password" name="pwd2" id="pwd2" formControlName = "password2" placeholder="Confirm Password" class="form-control ip  right">
+                    
+                    <div *ngIf = "registrationForm.controls['password2'].touched && registrationForm.controls['password2'].errors">
+                        <p *ngIf = "registrationForm.controls['password2'].errors.required" class="errormsg">Please Confirm your password</p> 
+                        <p *ngIf = "registrationForm.controls['password2'].value != registrationForm.controls['password1'].value"class="errormsg">passwords didnot match</p>
+                    </div>
+                  </div>
+               
+            </div>
+            <div class="row">
+                <div class="sub-grp col-md-6 mob">
+                    <span id= "m1star" class="star">*</span>
+                    <input type="tel" name="mobile" placeholder="Mobile Number" id="mobilenumber"  formControlName = "mobile1" class="form-control ip left"><br>
+                    <div *ngIf = "registrationForm.controls['mobile1'].touched && registrationForm.controls['mobile1'].errors">
+                        <p *ngIf = "registrationForm.controls['mobile1'].errors.required" class="errormsg">Please Enter your Mobile Number</p>
+                        <p *ngIf = "registrationForm.controls['mobile1'].errors.minlength" class="errormsg">Enter valid Mobile Number</p>
+                        <p *ngIf = "registrationForm.controls['mobile1'].errors.maxlength" class="errormsg">Enter valid Mobile Number</p>
+                    </div>
+                </div>
+                <div class="sub-grp col-md-6 mob">
+                    <br>                       
+                    <input type="tel" name="mobile" placeholder="Alternate Number" id="mobile2" formControlName = "mobile2" class="form-control ip right"><br>
+                </div>
+            </div>
+            <div class="row mx-auto"  id="gender">
+               
+                <div class="col-md-3 "><span id= "genstar" class="star"></span>    Gender</div>
+                <div class="col-md-3">
+                    <input type="radio"  class="gender"  formControlName = "mobile2" value="male" required><span class="gen radio-text">Male</span>
+                </div>
+                <div class="col-md-3">
+                    <input type="radio"class="gender"  formControlName = "mobile2" required value="female" ><span class="gen radio-text"> Female</span>
+                </div>
+                <div class="col-md-3">
+                    <input type="radio"  class="gender"  formControlName = "mobile2" required value="other"> <span class="gen radio-text"> other</span><br>
+                </div>
+                <div *ngIf = "registrationForm.controls['gender'].touched &&registrationForm.controls['gender'].invalid">
+                    <p class="errormsg">Please Select gender</p>
+                  
+                </div>
+            </div>
+            <div class="row bottom">
+                <div class="col-md-12 d-flex justify-content-between">
+                    <a href="" id="signin" class="btn btn-primary">Sign in </a>
+                    <button type="button" class="btn btn-primary" id="next" (click)= "showGrp2();save();generateCaptcha()"
+                    [disabled] = "registrationForm.controls['gender'].invalid|| registrationForm.controls['mobile1'].invalid  ||registrationForm.controls['password1'].invalid  || registrationForm.controls['password2'].invalid ||
+                    registrationForm.controls['email'].invalid ||registrationForm.controls['firstName'].invalid || registrationForm.controls['lastName']">
+                   Next</button>
+          
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="extra1"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
